@@ -1,0 +1,166 @@
+/* Hoja de estilos que sobreescribe los estilos por defecto de componentes jquery y struts */
+
+/* Titulos de acordeones */
+.ui-accordion-header, .ui-accordion-content {
+	width: 100% !important;
+}
+
+/* Select con autocompletar */
+.s2j-combobox .ui-autocomplete-input {
+	color: #000000 !important;
+	background-color: #FFFFFF !important;
+	border: 1px solid #ccc !important;
+	height: 35px !important;
+	float: left !important;
+	width: 100% !important;
+	font-size: 14px !important;
+	line-height: 1.42857143 !important;
+	text-align: left !important;
+}
+
+.s2j-combobox .ui-autocomplete-input:focus {
+	color: #000000 !important;
+	background-color: #FFFFFF !important;
+	border-color: #66afe9 !important;
+	border: 1px thin #66afe9 !important;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
+		rgba(102, 175, 233, .6) !important;
+	height: 35px !important;
+	outline: 0 !important;
+}
+
+/* Datepicker */
+.ui-datepicker {
+	z-index: 1000 !important;
+}
+
+.ui-datepicker-month, .ui-datepicker-year {
+	color: #590016;
+}
+
+/* Progressbar */
+.ui-progressbar-value {
+	border-top: 0px;
+	border-bottom: 0px;
+	border-left: 0px;
+	margin-top: 0px !important;
+}
+
+/* Spinner */
+.ui-spinner-input {
+	margin: 0px;
+}
+
+.ui-spinner.ui-widget-content {
+	border: none;
+	width: 100%;
+}
+
+/* Estilo para el dialogo */
+.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front {
+	width: 100% !important;
+}
+
+@media ( min-width : 768px) {
+	.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front {
+		width: 60% !important;
+	}
+}
+
+@media ( min-width : 992px) {
+	.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front {
+		width: 60% !important;
+	}
+}
+
+@media ( min-width : 1200px) {
+	.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front {
+		width: 40% !important;
+	}
+}
+
+/**
+*Estilo de color para tooltip de boostrap
+*/
+.tooltip-inner {
+	background-color: #ffffff !important;
+	color: #500014;
+	border-color: #500014;
+	border-style: solid;
+}
+
+/**
+*Estilo de color para tooltip de boostrap
+*/
+.tooltip.top .tooltip-arrow {
+	border-top-color: #500014;
+}
+
+/* Estilos para la alineacion de textos */
+.text-xs-left {
+	text-align: left;
+}
+
+.text-xs-right {
+	text-align: right;
+}
+
+.text-xs-center {
+	text-align: center;
+}
+
+.text-xs-justify {
+	text-align: justify;
+}
+
+.control-label {
+	text-align: left !important;
+}
+
+@media ( min-width : 768px) {
+	.text-sm-left {
+		text-align: left;
+	}
+	.text-sm-right {
+		text-align: right;
+	}
+	.text-sm-center {
+		text-align: center;
+	}
+	.text-sm-justify {
+		text-align: justify;
+	}
+}
+
+@media ( min-width : 992px) {
+	.text-md-left {
+		text-align: left;
+	}
+	.text-md-right {
+		text-align: right;
+	}
+	.text-md-center {
+		text-align: center;
+	}
+	.text-md-justify {
+		text-align: justify;
+	}
+}
+
+@media ( min-width : 1200px) {
+	.text-lg-left {
+		text-align: left;
+	}
+	.text-lg-right {
+		text-align: right;
+	}
+	.text-lg-center {
+		text-align: center;
+	}
+	.text-lg-justify {
+		text-align: justify;
+	}
+	.control-label {
+		text-align: right !important;
+	}
+}

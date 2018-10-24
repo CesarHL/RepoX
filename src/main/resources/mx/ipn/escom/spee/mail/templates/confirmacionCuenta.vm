@@ -1,0 +1,18 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title>
+</head>
+<body>
+	Hola ${usuario}, Bienvenido a Sistema de Pagos Electrónicos ESCOM:
+	
+	<p>
+		Nombre: ${usuario}
+	</p>
+	</br>
+	<p>
+		Para ingresar al sistema <a href="${urlAcceso}">aquí</a>
+	</p>
+	
+</body>
+</html>

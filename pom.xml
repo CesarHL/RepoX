@@ -1,0 +1,590 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>spee</groupId>
+	<artifactId>spee</artifactId>
+	<packaging>war</packaging>
+	<version>1</version>
+	<name>spee</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		<!-- Versiones usadas de los frameworks -->
+		<struts.version>2.5.8</struts.version>
+		<spring.version>4.3.6.RELEASE</spring.version>
+		<hibernate.version>5.2.7.Final</hibernate.version>
+		<jetty.version>8.1.8.v20121106</jetty.version>
+		<!-- Define el formato de fecha con el que debe ser generada la estampa 
+			de tiempo en cada ejecución de construcción de maven -->
+		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+		<finalName>spee</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.8</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<!-- copy-dependency plugin -->
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.apache.maven.plugins</groupId>
+												<artifactId>maven-dependency-plugin</artifactId>
+												<versionRange>[1.0.0,)</versionRange>
+												<goals>
+													<goal>copy-dependencies</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+							<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>
+							<includeGroupIds>commons,groovy-all,iText,jasperreports,ireportFont,fiel-service</includeGroupIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<!-- Plugin que permite ejecutar Sonar para verificación de buenas prácticas -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.6</version>
+			</plugin>
+
+			<!-- Plugin que permite hacer un despligue automática del war generado 
+				en Tomcat 7 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<url>${host.url}</url>
+					<!-- Es necesario tener definido este servidor en el archivo ~/.m2/settings.xml -->
+					<server>${server.name}</server>
+					<path>${server.path}</path>
+				</configuration>
+			</plugin>
+
+		</plugins>
+		<!-- sirve para que que el plugin de maven-dependency-plugin rife con m2e -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<dependencies>
+		<!-- Framework to write repeatable tests -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- ********************************* -->
+		<!--Dependencias del Framework Struts2 -->
+		<!-- ********************************* -->
+
+		<!-- Núcleo de struts2 -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>${struts.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Plugin que permite el uso de etiquetas para la renderización de componentes 
+			y uso de jquery -->
+		<dependency>
+			<groupId>com.jgeppert.struts2.jquery</groupId>
+			<artifactId>struts2-jquery-plugin</artifactId>
+			<version>4.0.2</version>
+		</dependency>
+		<!-- Permite la integración de bootstrap en el proyecto -->
+		<dependency>
+			<groupId>com.jgeppert.struts2.bootstrap</groupId>
+			<artifactId>struts2-bootstrap-plugin</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<!-- Permite la integración del plugin convention para el manejo de convenciones 
+			en la forma de localizar los métodos en los action y el manejo de results -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-convention-plugin</artifactId>
+			<version>${struts.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Plugin que permite la integración de Struts2 con Spring -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-spring-plugin</artifactId>
+			<version>${struts.version}</version>
+			<!-- Se debe excluir algunas dependencias de Spring, dado que este plugin 
+				trabaja con versiones muy antiguas -->
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-web</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-core</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Proporciona un tipo de resultado "json" que serializa un action hacia 
+			formato Json -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-json-plugin</artifactId>
+			<version>${struts.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<!-- Permite hacer uso del decorador Sitemesh para la renderización de 
+			las vistas -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-sitemesh-plugin</artifactId>
+			<version>${struts.version}</version>
+		</dependency>
+		<!-- Provides high level support for the implementation of RESTful resource 
+			based web applications -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-rest-plugin</artifactId>
+			<version>${struts.version}</version>
+		</dependency>
+		<!-- Herramienta que ayuda a visualizar la configuración de una aplicación 
+			en tiempos de ejecución. Es bastante útil al debuggear problemas relacionados 
+			con la configuración. Este solo debe ser usado en la fase de desarrollo y 
+			no en producción. -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-config-browser-plugin</artifactId>
+			<version>${struts.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- ********************** -->
+		<!-- Dependencias de Spring -->
+		<!-- ********************** -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- ************************* -->
+		<!-- Dependencias de Hibernate -->
+		<!-- ************************* -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr-runtime</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml</groupId>
+			<artifactId>classmate</artifactId>
+			<version>1.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jta_1.1_spec</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>5.0.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>1.0.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.21.0-GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss</groupId>
+			<artifactId>jandex</artifactId>
+			<version>2.0.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.3.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.21.0-GA</version>
+		</dependency>
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.35</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1212</version>
+		</dependency>
+		<!-- Plugin que permite hacer el log de las sentencias SQL completas que 
+			son enviadas a la BD -->
+		<dependency>
+			<groupId>p6spy</groupId>
+			<artifactId>p6spy</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<!-- Permite reescribir la url. Utilizado para quitar el jsessionid -->
+		<dependency>
+			<groupId>org.tuckey</groupId>
+			<artifactId>urlrewritefilter</artifactId>
+			<version>4.0.3</version>
+		</dependency>
+		<!-- Ofrece una capa de abstracción para el logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.6</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.6</version>
+		</dependency>
+		<!-- Logback -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<!-- Se agrega esta librería para el uso de la API de JSP aunque la misma 
+			debe ser provista por el contenedor -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<!-- ********************** empieza email con velocity ********************** -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.5.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-mail</artifactId>
+			<version>4.0.4.RELEASE</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<!-- ********************** termina email con velocity ********************** -->
+
+		<!-- ********************** empieza json en java ********************** -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>nl.captcha.simplecaptcha</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<!-- jasperReports -->
+		<dependency>
+			<groupId>commons</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<scope>system</scope>
+			<version>1.8.0</version>
+			<systemPath>${basedir}/lib/jasper/commons-beanutils-1.8.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>commons</groupId>
+			<artifactId>commons-collections</artifactId>
+			<scope>system</scope>
+			<version>3.2.1</version>
+			<systemPath>${basedir}/lib/jasper/commons-collections-3.2.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>commons</groupId>
+			<artifactId>commons-digester</artifactId>
+			<scope>system</scope>
+			<version>2.1</version>
+			<systemPath>${basedir}/lib/jasper/commons-digester-2.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>commons</groupId>
+			<artifactId>commons-javaflow</artifactId>
+			<scope>system</scope>
+			<version>20060411</version>
+			<systemPath>${basedir}/lib/jasper/commons-javaflow-20060411.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>commons</groupId>
+			<artifactId>commons-logging</artifactId>
+			<scope>system</scope>
+			<version>1.1.1</version>
+			<systemPath>${basedir}/lib/jasper/commons-logging-1.1.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>groovy-all</groupId>
+			<artifactId>groovy-all</artifactId>
+			<scope>system</scope>
+			<version>2.0.1</version>
+			<systemPath>${basedir}/lib/jasper/groovy-all-2.0.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>iText</groupId>
+			<artifactId>iText</artifactId>
+			<scope>system</scope>
+			<version>2.1.7</version>
+			<systemPath>${basedir}/lib/jasper/iText-2.1.7.js2.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<scope>system</scope>
+			<version>5.6.0</version>
+			<systemPath>${basedir}/lib/jasper/jasperreports-5.6.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>jasperreports-fonts</artifactId>
+			<scope>system</scope>
+			<version>5.6.0</version>
+			<systemPath>${basedir}/lib/jasper/jasperreports-fonts-5.6.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>jasperreports-javaflow</artifactId>
+			<scope>system</scope>
+			<version>5.6.0</version>
+			<systemPath>${basedir}/lib/jasper/jasperreports-javaflow-5.6.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>png-encoder</artifactId>
+			<scope>system</scope>
+			<version>1.5</version>
+			<systemPath>${basedir}/lib/jasper/png-encoder-1.5.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>poi</artifactId>
+			<scope>system</scope>
+			<version>3.7</version>
+			<systemPath>${basedir}/lib/jasper/poi-3.7-20101029.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>htmlcomponent</artifactId>
+			<scope>system</scope>
+			<version>5.0.1</version>
+			<systemPath>${basedir}/lib/jasper/jasperreports-htmlcomponent-5.0.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>ireportFont</groupId>
+			<artifactId>ireportFont-Times</artifactId>
+			<scope>system</scope>
+			<version>1.0</version>
+			<systemPath>${basedir}/lib/jasper/jrTimes.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>ireportFont</groupId>
+			<artifactId>ireportFont-Arial</artifactId>
+			<scope>system</scope>
+			<version>1.0</version>
+			<systemPath>${basedir}/lib/jasper/jrArial.jar</systemPath>
+		</dependency>
+		<!-- jasperReports END -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>1.45</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.studio</groupId>
+			<artifactId>org.apache.commons.codec</artifactId>
+			<version>1.6</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-util</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-websocket</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>OSGEO GeoTools repo</id>
+			<url>http://download.osgeo.org/webdav/geotools</url>
+		</repository>
+		<repository>
+			<id>Hibernate Spatial repo</id>
+			<url>http://www.hibernatespatial.org/repository</url>
+		</repository>
+		<repository>
+			<id>OL4JSF Local Repository</id>
+			<name>OL4JSF</name>
+			<url>https://java.net/svn/ol4jsf~svn/repository/</url>
+		</repository>
+	</repositories>
+</project>

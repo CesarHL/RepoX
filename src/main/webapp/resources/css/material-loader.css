@@ -1,0 +1,105 @@
+$green: #008744;
+$blue: #0057e7;
+$red: #d62d20;
+$yellow: #ffa700;
+$white: #d62d20;
+
+$width: 100px;
+
+body {
+  background-color: $white;
+}
+
+.small-loader {
+  position: relative;
+  margin: 0 auto;
+  width: 25px;
+  height: 25px;
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+.medium-loader {
+  position: relative;
+  margin: 0 auto;
+  width: 70px;
+  height: 70px;
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+.max-loader {
+  position: relative;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+.circular {
+  animation: rotate 2s linear infinite;
+  height: 100%;
+  transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes color {
+  100%,
+  0% {
+    stroke: #d62d20;
+  }
+  40% {
+    stroke: #d62d20;
+  }
+  66% {
+    stroke: #d62d20;
+  }
+  80%,
+  90% {
+    stroke: #d62d20;
+  }
+}

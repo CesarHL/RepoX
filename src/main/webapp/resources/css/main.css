@@ -1,0 +1,205 @@
+/* Estilos generales */
+body {
+	font-family: "Raleway", Helvetica, Arial, Verdana, sans-serif !important;
+	font-size: 13px/16px";
+	background: #9C002F !important;
+}
+
+#content {
+	min-height: 400px !important;
+}
+
+.footer-text {
+	color: rgb(255, 255, 255) !important;	
+}
+
+.footer {
+	clear: both;
+	width: 100%;
+	height: 100%;
+	background: -webkit-linear-gradient(#020202, #3f4144) !important;
+	/* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#020202, #3f4144) !important;
+	/* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#020202, #3f4144) !important;
+	/* For Firefox 3.6 to 15 */
+	background: linear-gradient(#494646, #070719) !important;
+	/* Standard syntax (must be last) */
+	margin-top: 10px !important;
+	clear: both;
+	border-top: 1px solid;
+	border-top-color: rgb(231, 231, 231);
+	padding: 20px 0px 20px 0px;
+	text-align: center;
+}
+
+.navbar {
+	padding: 0px 0px 0px 0px;
+}
+
+.logo {
+	width: 100%;
+	height: 100%;
+	margin: 3px 11px 0px -10px;
+}
+
+/* Estilos para columnas pequeñas en datatables */
+.col-actions {
+	max-width: 15% !important;
+	width: 15% !important;
+}
+
+.col-number {
+	max-width: 15% !important;
+	width: 15% !important;
+}
+
+/* Estilos para elementos html */
+textarea {
+	resize: none;
+}
+
+i {
+	cursor: pointer;
+}
+
+.hidden {
+	display: none;
+}
+
+/* Estilos para el componente de contactos */
+.container-dialog {
+	width: 95%;
+}
+
+#dlgContact, .ui-dialog {
+	width: 650px !important;
+}
+
+#dlgContact>* {
+	display: block;
+}
+
+/* Otros estilos */
+#page-wrapper .intro-section {
+	padding-top: 105px !important;
+	padding-bottom: 20px !important;
+}
+
+.button-action-image:hover {
+	background-color: rgba(234, 234, 234, 0.9);
+}
+
+.button-action-image {
+	border-radius: 2px;
+	padding: 2px;
+	height: 22px;
+	width: 22px;
+	cursor: pointer;
+	margin: 0px 2px 0px 2px;
+	background-color: rgba(234, 234, 234, 0.5);
+}
+
+.alert-info {
+	margin: 10px 0px 10px 0px;
+}
+
+.col-text {
+	text-align: left;
+}
+
+.group-image {
+	max-width: 75%;
+}
+
+.col-actions {
+	max-width: 15% !important;
+	width: 15% !important;
+}
+
+.col-number {
+	max-width: 15% !important;
+	width: 15% !important;
+}
+
+.msg-welcome {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.msg-frase {
+	margin-top: 50px;
+	margin-bottom: 50px;
+	font-style: italic;
+}
+
+.msg-author {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-style: italic;
+}
+
+.pdf {
+	height: 500px;
+}
+
+table, th, tr, td {
+	text-align: left;
+}
+
+.title-red {
+	margin: 0px 0px 20px 0px;
+	color: #ff1a1a;
+}
+
+/* Estilos para los mensajes */
+.alert {
+	padding: 5px !important;
+	margin-bottom: 0px !important;
+}
+
+/* Estilo para textos no definidos */
+.undefined-text {
+	color: #797B7F;
+	font-style: italic;
+}
+
+/* Estilo para textos de error */
+.error-text {
+	color: #A50F0F;
+	font-weight: bold;
+}
+
+/* Estilo para que un div tenga barra de scroll*/
+.div-scroll {
+	overflow-y: scroll;
+	height: 50em;
+}
+
+/* Estilo para los */
+.terminos-subtitle {
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+/* Estilo imagenes manual ceneval */
+.manual-ceneval-img {
+	max-width: 90%;
+	max-height: 100%;
+	margin: 25px 0px 25px 0px;
+}
+
+/*Estilos para la imagen del profesor y la imagen de la firma del profesor*/
+.img-foto {
+	max-width: 94%;
+	max-height: 100%;
+	display: block;
+	margin: auto;
+}
+
+.img-firma {
+	max-width: 92%;
+	max-height: 100%;
+	display: block;
+	margin: auto;
+}

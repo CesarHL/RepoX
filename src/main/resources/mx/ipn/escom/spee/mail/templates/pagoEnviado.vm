@@ -1,0 +1,13 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title>
+</head>
+<body>
+	Hola ${usuario}, has enviado un pago con fecha ${fechaEnvio} por concepto de ${conceptoPago}, espera una notificación de caja muy pronto.
+
+	<p>
+		Para ingresar al sistema <a href="${urlNotifiaciones}">aquí</a>
+	</p>
+</body>
+</html>

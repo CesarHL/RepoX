@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<!-- Archivo utilizado para indicar la ubicación del decorador y los archivos 
+	a los cuáles debe ser aplicado -->
+
+<decorators defaultdir="/resources/decorators">
+	<!-- En este nodo deberían ser agregados todos aquellos recursos jsp a los 
+		que no se les desea aplicar el decorador -->
+	<excludes>
+		<pattern>*/styles/*</pattern>
+		<pattern>*/scripts/*</pattern>
+		<pattern>*/images/*</pattern>
+		<pattern>*/convocatoria/gestionar-criterio!mostrarCriterios*
+		</pattern>
+		<pattern>*/convocatoria/gestionar-requisito!mostrarRequisitos*
+		</pattern>
+		<pattern>*/convocatoria/gestionar-actividades!mostrarActividades*
+		</pattern>
+		  <pattern>*/informacion-base/gestionar-persona/*!getContacts*
+		</pattern>
+		<pattern>*/informacion-base/gestionar-persona!addContact*
+		</pattern>
+		<pattern>/client/gestionar-estudiante-grupo!editGroupStudents</pattern>
+		<pattern>/client/gestionar-libro-grupo!editGroupBooks</pattern>
+		<pattern>/entrevistas/gestionar-entrevistas!antecedentesEscolares*
+		</pattern>
+		<pattern>/entrevistas/gestionar-entrevistas!evaluaciones*
+		</pattern>
+		<pattern>/entrevistas/gestionar-entrevistas!antecedentesEscolares*
+		</pattern>
+		<pattern>/entrevistas/gestionar-entrevistas!evaluacionConceptos*
+		</pattern>
+		<pattern>/entrevistas/gestionar-entrevistas!reporteFinalPsicometrico*
+		</pattern>
+	</excludes>
+	<!-- Nombre del archivo decorador ubicado en defaultdir y que será aplicado 
+		a los recursos que empaten con el patrón definido -->
+	<decorator name="layout" page="layout.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+</decorators> 
